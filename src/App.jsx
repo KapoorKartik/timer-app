@@ -1,4 +1,4 @@
-import { Button, Input, TextField } from "@mui/material";
+import { Alert, Button, Input, TextField } from "@mui/material";
 import { useState } from "react";
 import "./App.css";
 import { Timer } from "./components/Timer";
@@ -6,16 +6,16 @@ import { Timer } from "./components/Timer";
 function App() {
   const [start, setStart] = useState(false);
   const [time, setTime] = useState({
-    start: "",
-    end: "",
+    start: null,
+    end: null,
   });
 
   const handleClick = () => {
     setStart(!start);
     if (start === true) {
       setTime({
-        start: "",
-        end: "",
+        start: null,
+        end: null,
       });
     }
   };
@@ -30,9 +30,21 @@ function App() {
       [id]: value,
     });
   };
+  // if (start > end) {
+  //   return (
+  //     <Alert variant="filled" severity="error">
+  //       Enter Valid Start Time and End Time
+  //     </Alert>
+  //   );
+  // }
   // console.log("time", time);
   return (
     <div className="App">
+      {+time.end - +time.start <= 0 ? (
+        <Alert variant="filled" severity="error">
+          Enter Valid Start Time and End Time
+        </Alert>
+      ) : null}
       {start ? <Timer {...time} /> : <h1>Timer : 0</h1>}
       <br />
       <TextField

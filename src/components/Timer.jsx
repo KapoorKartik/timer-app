@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 
 export const Timer = ({ start, end }) => {
-  const [timer, setTimer] = useState(+start);
+  //start and end are string
+  start = +start;
+  end = +end;
+
+  const [timer, setTimer] = useState(start);
 
   useEffect(() => {
     const id = setInterval(() => {
       setTimer((p) => {
-        if (p < +end) {
+        if (p < end) {
           return (p = p + 1);
         }
         clearInterval(id);
